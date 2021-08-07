@@ -1,0 +1,12 @@
+# Ignore directories <name>/
+.idea/
+.idea/*
+__pycache__/
+
+# Ignore files
+*.class
+hs_err_pid*
+*.iml
+
+# Ignore all .DS_Store files
+**/.DS_Store
