@@ -1,0 +1,55 @@
+# Optimization Tools
+
+Many general purpose optimization tools have been developed for solving optimization problems in practice. These are typically called "solvers". This page includes pointers to solvers that are acceptable to use in the assessments of this course. They are organized by their underling solving technology. Some solvers are commercial products and may only be available after purchasing a license or acquiring an academic license via another institution.
+
+It is important to note that these are general purpose optimization tools. They are not tailored to a specific problem. You cannot use solvers that are dedicated to solving a specific problem as this would violate the course guidelines on code sharing.
+
+No particular solvers are officially suggested or supported by the course. However, we encourage you to help your fellow students in resolving technical issues relating to the use of specific solvers.
+
+Lastly, generic optimization tools are fantastic for rapid prototyping of different optimization ideas and models. However, it will always be difficult for a general tool to outperform an algorithm that is dedicated to a particular problem. It is possible to get full credit in this course using generic solvers. However, the highest quality solutions, often come from hand-crafted dedicated solvers.
+
+
+## Constraint Programming Solvers:
+
+CHOCO - java library, open source
+Gecode - c++, free
+ILog - binary, free with academic license
+JACOP - java , open source
+MiniZinc / G12 - binary, free for students
+or-tools - C++ , open source, APIs - Java, Python, and .NET
+
+
+## Mixed Integer Programming Solvers:
+
+BCP - c++, open source
+CBC - c++, open source
+CPlex - binary, free with academic license
+GLPK - c, open source
+gurobi - binary, free with academic license
+LPSolve - c, open source
+SCIP - binary, free for academic use
+
+
+## Linear Programming Solvers
+
+CLP - c++, open source
+SimplexSolver - java, open source
+
+
+## Local Search Solvers:
+
+Local Solver - binary, free with academic license
+OptaPlanner - java, open source
+
+
+## SAT Solvers:
+
+cryptominisat - c++, open source
+Glucose - c, open source
+Lingeling - c, open source
+MiniSat - binary, free
+UBCSAT - c, open source
+
+## Hybrid Solvers:
+
+SCIP - binary, free for academic use
