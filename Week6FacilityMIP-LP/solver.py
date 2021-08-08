@@ -51,7 +51,7 @@ def transpose(list_2d):
     return [[row[i] for row in list_2d] for i in range(len(list_2d[0]))]
 
 
-def solve_ortools_mip(cm: CostMatrix, facilities, customers, time_limit_seconds):
+def solve_ortools_mip(cm: CostMatrix, facilities, customers, time_limit_seconds, num_threads=None):
     # [START data]
     print('Facilities=%d Customers=%d' % (len(facilities), len(customers)))
     # [END data]
@@ -98,7 +98,7 @@ def solve_ortools_mip(cm: CostMatrix, facilities, customers, time_limit_seconds)
     # [START solve]
     print('Variables=%d Constraints=%d' % (solver.NumVariables(), solver.NumVariables()))
     solver.SetTimeLimit(1000 * time_limit_seconds)
-    solver.SetNumThreads(6)
+    if num_threads is not None: solver.SetNumThreads(num_threads)
     solver.EnableOutput()
     status = solver.Solve()
     print('Status=%d Iterations=%d Wall-Time=%d' % (status, solver.wall_time(), solver.iterations()))
@@ -243,23 +243,28 @@ def solve_it(input_data):
 
     cm = CostMatrix(facilities, customers)
 
-    if len(customers) >= 2000:
+    if len(facilities) > 1000 or len(customers) > 3000:
         solution, cost, is_optimal = trivial_solution(facilities, customers)
     else:
         # Time Limit
-        if len(facilities) <= 100:
+        if len(facilities) <= 100 and len(customers) < 400:
             time_limit_seconds = 180
-        elif len(facilities) == 100 and len(customers) >= 400:
-            time_limit_seconds = 600
-        elif len(facilities) >= 200:
-            time_limit_seconds = 600
-        elif len(facilities) >= 500:
+            num_threads = None
+        elif len(facilities) <= 100:
+            #time_limit_seconds = 600
+            time_limit_seconds = 3600
+            num_threads = 7
+        elif len(facilities) <= 500:
             time_limit_seconds = 1200
-        else:  # instances 6,7
-            time_limit_seconds = 300
+            #time_limit_seconds = 3600 # Process is killed (Macbook 13 2020 i5 16Gb)
+            num_threads = 7
+        else
+            #time_limit_seconds = 1200
+            time_limit_seconds = 3600
+            num_threads = None
         # solution, cost, is_optimal = trivial_solution(facilities, customers)
         # solution, cost, is_optimal = solve_ortools_cp_sat(cm, facilities, customers)
-        solution, cost, is_optimal = solve_ortools_mip(cm, facilities, customers, time_limit_seconds)
+        solution, cost, is_optimal = solve_ortools_mip(cm, facilities, customers, time_limit_seconds,num_threads=num_threads)
 
     # prepare the solution in the specified output format
     output_data = '%.2f' % cost + ' ' + str(is_optimal) + '\n'
